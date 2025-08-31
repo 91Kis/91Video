@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>关于</title>
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* About page small enhancements only */
+    :target { scroll-margin-top: 16px; }
+    .policy { font-size: 0.98rem; }
+    .policy p { margin: .35rem 0; }
+    .policy ul { margin: .25rem 0 .75rem 0; padding-left: 1.1em; } /* align with paragraph column */
+    .policy ul li { margin: .2rem 0; }
+    .panel { border-radius: 10px; }
+  </style>
+
+</head>
+<body>
+  <header class="container">
+    <h1 class="logo">关于</h1>
+  </header>
+  <main class="container">
+    <section class="panel" style="margin-top:16px">
+      <h3 class="title">关于本站</h3>
+      <p style="margin-top:.5rem;">91Kis和他的爱妻91YuchengH共同创作。</p>
+      <div class="row" style="margin-top:1rem;justify-content:flex-end">
+        <a href="index.html" class="btn">返回首页</a>
+      </div>
+    </section>
+
+    
+    <section id="security" class="panel" style="margin-top:16px">
+      <h3 class="title">安全策略 · Security Policy</h3>
+      <div class="policy">
+        <p><strong>安全策略（中文）</strong></p>
+        <p><strong>维护者：</strong> 91Kis &amp; 91YuchengH</p>
+        <p><strong>联系邮箱：</strong> <a href="mailto:Video91_official@hotmail.com">Video91_official@hotmail.com</a></p>
+
+        <p><strong>覆盖范围</strong></p>
+        <ul>
+          <li>本仓库 main 分支的最新代码</li>
+          <li>部署在 https://91kis.github.io/91Video/ 的线上页面</li>
+        </ul>
+
+        <p><strong>不在范围（示例）：</strong></p>
+        <ul>
+          <li>第三方平台/基础设施本身的问题（如 GitHub、Firebase），除非因我们配置不当造成影响</li>
+          <li>社工、物理攻击、暴力破解、垃圾信息或大流量 DoS</li>
+          <li>需要已被攻陷的设备/账号或用户安装恶意软件才能实现的漏洞</li>
+        </ul>
+
+        <p><strong>报告方式</strong></p>
+        <ul>
+          <li>请不要建立公开 Issue 或 PR。</li>
+          <li>首选：GitHub 私密漏洞上报（仓库 → Security → Report a vulnerability）。</li>
+          <li>若不可用，可发邮件至 <a href="mailto:Video91_official@hotmail.com">Video91_official@hotmail.com</a>。</li>
+        </ul>
+
+        <p><strong>请尽量提供：</strong></p>
+        <ul>
+          <li>清晰复现步骤与影响说明</li>
+          <li>PoC 或者操作步骤</li>
+          <li>受影响的 URL、提交哈希或版本</li>
+          <li>复现环境（浏览器/系统）与日志/录屏</li>
+          <li>你的联系方式以便沟通</li>
+        </ul>
+
+        <p><strong>处理与时限</strong></p>
+        <ul>
+          <li>72 小时内确认收到</li>
+          <li>7 天内完成初步分级与定级（参考 CVSS v3.1）</li>
+          <li>修复前每 7 天至少一次状态更新</li>
+          <li>目标修复时限：高/危急级不超过 90 天（可加速）</li>
+          <li>我们会在发布说明中感谢报告者（如不希望署名可告知）；重复报告按先到原则致谢。</li>
+        </ul>
+
+        <p><strong>协同披露</strong></p>
+        <ul>
+          <li>在我们修复前请暂缓公开披露</li>
+          <li>仅在自有账号/测试数据上测试，勿触碰真实用户数据</li>
+        </ul>
+
+        <p><strong>安全港（善意研究）</strong></p>
+        <ul>
+          <li>不进行隐私数据读取/外传、不进行 DoS、不进行社工</li>
+          <li>遵守速率限制，仅使用测试数据/账号</li>
+          <li>若意外接触到敏感数据，应立即停止并报告</li>
+        </ul>
+
+        <p><strong>不在范围（示例）</strong></p>
+        <ul>
+          <li>需要用户自行在控制台粘贴代码的 Self-XSS</li>
+          <li>无敏感操作页面的点击劫持</li>
+          <li>无实质影响的限流类问题</li>
+          <li>仅在已被攻陷的设备/账号条件下才能实现的漏洞</li>
+        </ul>
+
+        <p><strong>赏金</strong></p>
+        <p>目前不提供现金赏金；欢迎接受公开/私下致谢。</p>
+
+        <hr style="margin:1rem 0;">
+
+        <p><strong>Security Policy · 91Video</strong></p>
+        <p><strong>Maintainers:</strong> 91Kis &amp; 91YuchengH</p>
+        <p><strong>Contact:</strong> <a href="mailto:Video91_official@hotmail.com">Video91_official@hotmail.com</a></p>
+
+        <p><strong>Supported Versions</strong></p>
+        <ul>
+          <li>The latest main branch of this repository.</li>
+          <li>The currently deployed site (GitHub Pages).</li>
+        </ul>
+
+        <p><strong>Scope</strong></p>
+        <p>In scope:</p>
+        <ul>
+          <li>This repository’s code and configurations</li>
+          <li>The deployed site at https://91kis.github.io/91Video/ and subpaths</li>
+        </ul>
+        <p>Out of scope (examples):</p>
+        <ul>
+          <li>Third-party platforms or infrastructure (e.g., GitHub, Firebase) unless the issue arises from our misuse</li>
+          <li>Social engineering, physical attacks, account brute-forcing, spam or volumetric DoS</li>
+          <li>Findings that require compromised devices/accounts or user-installed malware</li>
+        </ul>
+
+        <p><strong>Reporting a Vulnerability</strong></p>
+        <p>Please DO NOT open public issues or pull requests.</p>
+        <p>Preferred channel: GitHub Private Vulnerability Reporting. Open the repository → Security → Report a vulnerability.</p>
+        <p>If GitHub reporting is unavailable, email us at <a href="mailto:Video91_official@hotmail.com">Video91_official@hotmail.com</a>.</p>
+
+        <p><strong>Please include:</strong></p>
+        <ul>
+          <li>Clear, reproducible description and impact</li>
+          <li>PoC or step-by-step reproduction</li>
+          <li>Affected URL(s), commit hash or version</li>
+          <li>Environment (browser, OS) and any logs/screen recordings</li>
+          <li>Your contact info for coordination</li>
+        </ul>
+
+        <p><strong>Handling &amp; Timelines</strong></p>
+        <ul>
+          <li>Acknowledgment: within 72 hours</li>
+          <li>Initial triage &amp; severity (CVSS v3.1 as reference): within 7 days</li>
+          <li>Status updates: at least every 7 days until resolution</li>
+          <li>Target remediation: up to 90 days for High/Critical (expedited when feasible)</li>
+          <li>We credit the reporter in release notes (unless anonymity is requested). For duplicate reports, credit goes to the first verifiable submission.</li>
+        </ul>
+
+        <p><strong>Coordinated Disclosure</strong></p>
+        <ul>
+          <li>Please allow us time to investigate and release a fix before public disclosure.</li>
+          <li>Do not test against real users’ data; use your own test accounts only.</li>
+        </ul>
+
+        <p><strong>Safe Harbor (Good-Faith Research)</strong></p>
+        <ul>
+          <li>Avoid privacy violations, data exfiltration, service disruption (DoS), or social engineering</li>
+          <li>Respect rate limits and use test data/accounts only</li>
+          <li>Stop immediately if sensitive data is encountered and report it to us</li>
+        </ul>
+
+        <p><strong>Out of Scope (Examples)</strong></p>
+        <ul>
+          <li>Self-XSS requiring user to paste code into the console</li>
+          <li>Clickjacking on pages without sensitive actions</li>
+          <li>Lack of rate limiting without demonstrable impact</li>
+          <li>Vulnerabilities requiring already-compromised devices or accounts</li>
+        </ul>
+
+        <p><strong>Bounties</strong></p>
+        <p>This project does not currently offer monetary bug bounties. We are happy to provide public or private thanks.</p>
+      </div>
+</section>
+
+  </main>
+</body>
+</html>
