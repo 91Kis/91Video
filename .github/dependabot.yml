@@ -1,18 +1,21 @@
 # .github/dependabot.yml
 version: 2
 updates:
-  # 如果未来在 /site_realtime_full 下使用 NPM
-  - package-ecosystem: "npm"
-    directory: "/site_realtime_full"
-    schedule:
-      interval: "weekly"
-    groups:
-      security-fixes:
-        applies-to: security-updates
-        patterns: ["*"]
-
-  # 同时监控 GitHub Actions
+  # 监控 GitHub Actions（推荐，任何仓库都适用）
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      actions-minor:
+        patterns: ["*"]
+
+  # 如果将来在 /site_realtime_full 下使用 NPM/PNPM/Yarn，取消下面注释
+  # - package-ecosystem: "npm"
+  #   directory: "/site_realtime_full"
+  #   schedule:
+  #     interval: "weekly"
+  #   groups:
+  #     security-fixes:
+  #       applies-to: security-updates
+  #       patterns: ["*"]
