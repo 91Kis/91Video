@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="91Video 演示站点（UI 演示）" />
+  <title>用户主页 · 91Video</title>
+  <style>
+
+:root{
+  --bg:#0a0a0a;--panel:#151515;--panel-2:#1d1d1d;--text:#e6e6e6;--muted:#9ca3af;
+  --brand:#ff9900;--brand-2:#ffca63;--accent:#0ea5e9;--card:#222;--radius:14px;--shadow:0 10px 30px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:ui-sans-serif,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{width:min(1200px,92vw);margin-inline:auto}
+/* Topbar */
+#topbar{position:sticky;top:0;z-index:40;background:#000;border-bottom:1px solid #111}
+.top-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:900;letter-spacing:.2px}
+.brand .block{display:inline-flex;align-items:center;gap:.25rem;font-size:1.1rem}
+.brand .left{padding:.2rem .45rem;background:#000;border:1px solid #222;border-radius:6px}
+.brand .right{padding:.2rem .45rem;background:var(--brand);color:#000;border-radius:6px;font-weight:900}
+.nav{display:flex;align-items:center;gap:.8rem}
+.nav a{padding:.45rem .7rem;border-radius:10px;color:#c7c7c7}
+.nav a.active,.nav a:hover{background:#141414;color:#fff}
+.search{display:flex;align-items:center;gap:.4rem;background:#0e0e0e;border:1px solid #1c1c1c;border-radius:999px;padding:.35rem .6rem}
+.search input{background:transparent;border:none;outline:none;color:#ddd;width:190px}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem .9rem;border-radius:10px;border:1px solid #2a2a2a;background:#121212;color:#fff;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#000;border-color:#3d2a00}
+.btn.ghost{background:#111}
+.btn.danger{background:#2a0000;border-color:#5a0000;color:#ffb3b3}
+/* Sections */
+main{min-height:calc(100dvh - 58px)}
+section{padding:clamp(1.6rem,3vw,2.2rem) 0}
+.title{font-size:clamp(1.6rem,3vw,2.2rem);margin:.2rem 0 .6rem;font-weight:900}
+.muted{color:var(--muted)}
+/* Notice centered */
+.notice-page{min-height:calc(100dvh - 58px);display:grid;place-items:center}
+.notice-wrap{width:min(900px,92vw);background:var(--panel);border:1px solid #1f1f1f;border-radius:var(--radius);box-shadow:var(--shadow)}
+.notice-head{padding:1.2rem 1.1rem;border-bottom:1px solid #1f1f1f;display:flex;align-items:center;gap:.6rem;justify-content:space-between}
+.badge{display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .5rem;border-radius:999px;background:#171717;border:1px solid #262626;font-size:.85rem;color:#ffcc80}
+.notice-body{padding:1rem 1.1rem}
+.terms{background:var(--panel-2);border:1px solid #262626;border-radius:12px;max-height:38vh;overflow:auto;padding:1rem}
+.notice-actions{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:1rem;justify-content:flex-end}
+.note{font-size:.92rem;color:#bdbdbd}
+/* Cards grid */
+.grid{display:grid;gap:1rem}
+.cards{grid-template-columns:repeat(6,1fr)}
+.card{background:#111;border:1px solid #1e1e1e;border-radius:12px;overflow:hidden;cursor:pointer}
+.thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#1d1d1d 0%,#0f0f0f 100%);display:grid;place-items:center;color:#888;position:relative}
+.fav{position:absolute;top:8px;right:8px;background:#000a;border:1px solid #333;border-radius:999px;padding:.25rem .5rem;font-size:.9rem;cursor:pointer}
+.fav.active{background:#ff9900;color:#000;border-color:#3d2a00}
+.meta{padding:.65rem .75rem}
+.meta h4{margin:0 0 .25rem;font-size:1rem}
+.meta .info{display:flex;justify-content:space-between;color:#a1a1a1;font-size:.9rem}
+.chip{display:inline-flex;align-items:center;padding:.15rem .45rem;border-radius:6px;background:#1a1a1a;border:1px solid #2a2a2a;color:#ffcc80;font-size:.8rem}
+/* Skeleton */
+.skeleton{position:relative;overflow:hidden;background:#141414}
+.skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.05) 50%,transparent 100%);animation:sh .9s infinite}
+@keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+/* Toolbar */
+.toolbar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin:.8rem 0}
+.seg{display:inline-flex;border:1px solid #2a2a2a;border-radius:10px;overflow:hidden}
+.seg button{background:#111;border:none;color:#ddd;padding:.45rem .7rem;cursor:pointer}
+.seg button.active{background:#1a1a1a}
+.pill{background:#111;border:1px solid #2a2a2a;border-radius:999px;padding:.35rem .7rem}
+/* Category page */
+.cat-card{display:flex;flex-direction:column}
+.cat-thumb{aspect-ratio: 16/9; background:linear-gradient(135deg,#1c1c1c,#0e0e0e);display:grid;place-items:center;color:#bbb}
+.cat-meta{padding:.7rem}
+/* Forms / panels */
+.panel{background:var(--panel);border:1px solid #262626;border-radius:12px;padding:1rem}
+form.grid{grid-template-columns:1fr 1fr}
+label{font-size:.92rem;color:#cfcfcf}
+input{width:100%;padding:.7rem .8rem;border-radius:10px;background:#101010;border:1px solid #262626;color:#e8e8e8}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.empty{border:1px dashed #2a2a2a;border-radius:12px;padding:1.2rem;text-align:center;color:#a9a9a9}
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:100}
+.modal .box{width:min(520px,92vw);background:#141414;border:1px solid #2a2a2a;border-radius:12px;padding:1rem}
+.modal.show{display:flex}
+/* Footer */
+footer{border-top:1px solid #121212;color:#9a9aa}
+.foot{padding:1.2rem 0;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+/* Responsive */
+@media (max-width:1100px){.cards{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.search input{width:120px}}
+@media (max-width:500px){.cards{grid-template-columns:1fr}}
+
+
+/* --- Extra mobile tweaks (v7.2) --- */
+@media (max-width:640px){
+  .top-inner{flex-wrap:wrap}
+  .nav{flex-wrap:wrap}
+  .toolbar .seg{width:100%}
+  .grid.cards{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){
+  .btn{width:100%}
+  .grid.cards{grid-template-columns:1fr}
+  .search input{width:100px}
+  .seg{flex-wrap:wrap}
+  .row{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+  <div id="topbar"></div>
+  <main class="container">
+    
+<section>
+  <h2 class="title" id="uTitle">用户主页</h2>
+  <div class="panel">
+    <div class="row">
+      <div>
+        <label>用户ID</label>
+        <input id="uId" disabled />
+      </div>
+      <div>
+        <label>昵称</label>
+        <input id="uNick" disabled />
+      </div>
+    </div>
+    <div class="row" style="margin-top:.8rem">
+      <div>
+        <label>个人简介</label>
+        <input id="uBio" disabled />
+      </div>
+      <div style="display:flex;align-items:end;gap:.6rem">
+        <button id="btnAddFriend" class="btn">加好友</button>
+        <a id="btnSendMsg" class="btn ghost" href="#">发私信</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+  <footer id="foot"></footer>
+  <script>
+
+// ===== Common utilities & guards =====
+const $ = (sel)=>document.querySelector(sel);
+const $$ = (sel)=>Array.from(document.querySelectorAll(sel));
+
+// Age gate
+const PERSIST_ACCEPT=false;
+const ACCEPT_KEY='v91_accept_ts';
+function accepted(){
+  const v=(PERSIST_ACCEPT?localStorage:sessionStorage).getItem(ACCEPT_KEY);
+  if(!v) return false;
+  if(PERSIST_ACCEPT){ return (Date.now()-Number(v))<30*24*3600*1000; }
+  return true;
+}
+function setAccepted(){ (PERSIST_ACCEPT?localStorage:sessionStorage).setItem(ACCEPT_KEY,String(Date.now())); }
+function guardAge(){
+  if(!accepted() && !location.pathname.endsWith('notice.html')){
+    location.href='notice.html';
+  }
+}
+
+// Users via API wrappers
+function getCurrent(){ return API._current(); }
+function setCurrent(uid){ API._setCurrent(uid); }
+function isLogged(){ return !!API._current(); }
+function getFavs(){ return API.getFavs(); }
+function setFavs(arr){ return API.setFavs(arr); }
+
+// Build header/footer with Messages link & unread badge
+function injectChrome(activePath){
+  const topbar=document.getElementById('topbar');
+  if(topbar){
+    topbar.innerHTML = `
+    <div class="container top-inner">
+      <a class="brand" href="index.html" aria-label="前往首页">
+        <span class="block"><span class="left">91</span><span class="right">Video</span></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" ${activePath==='index.html'?'class="active"':''}>首页</a>
+        <a href="categories.html" ${activePath==='categories.html'?'class="active"':''}>分类</a>
+        <a href="messages.html" ${activePath==='messages.html'?'class="active"':''}>消息<span id="msgBadge" style="margin-left:.35rem;font-size:.8rem;color:#ffcc80"></span></a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <div class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" id="q" placeholder="搜索标题或标签" />
+        </div>
+        <button id="accountBtn" class="btn primary">登录</button>
+      </div>
+    </div>`;
+  }
+  const foot=document.getElementById('foot');
+  if(foot){
+    const y=new Date().getFullYear();
+    foot.innerHTML = `<div class="container foot">
+      <small>© ${y} 91Video </small>
+      <div style="display:flex;gap:.6rem;align-items:center">
+        <a href="notice.html">须知</a>
+        <a href="index.html">首页</a>
+        <a href="categories.html">分类</a>
+        <a href="messages.html">消息</a>
+<a href="about.html">关于</a>
+      </div>
+    </div>`;
+  }
+  syncTopbar();
+}
+
+function syncTopbar(){
+  const accountBtn=$('#accountBtn');
+  if(accountBtn){
+    const u=getCurrent();
+    accountBtn.textContent = u? `个人中心` : `登录`; 
+    accountBtn.onclick = ()=>{ location.href = u? 'profile.html' : 'login.html'; };
+  }
+  try{
+    const c=API.unreadCount();
+    const b=document.getElementById('msgBadge'); if(b) b.textContent = c? `(${c})` : '';
+  }catch{}
+}
+
+</script>
+  <script>
+
+// Demo data & tags
+const TAGS = ['教程','影视','音乐','课堂','游戏'];
+const ALL_DATA = Array.from({length:120}).map((_,i)=> ({
+  id: i+1,
+  title: `演示内容 #${i+1}`,
+  views: Math.floor(Math.random()*900+100)+'k',
+  duration: `${Math.floor(Math.random()*9)+1}:${String(Math.floor(Math.random()*60)).padStart(2,'0')}`,
+  tag: TAGS[i%TAGS.length]
+}));
+
+</script>
+  <script>
+
+window.API = (function(){
+  const USERS_KEY='v91_users';
+  const CURRENT_KEY='v91_uid';
+  const GUEST_FAV_KEY='v91_guest_favs';
+  const COMMENTS_KEY='v91_comments'; // { [videoId]: [{userId, nick, text, ts}] }
+  const MSG_KEY='v91_messages'; // [{from,to,text,ts,read:false}]
+  const GROUPS_KEY='v91_groups'; // { [userId]: [{id,name,messages:[{from,text,ts,nick}]}] }
+
+  function _users(){ try{return JSON.parse(localStorage.getItem(USERS_KEY)||'{}')}catch{return{}} }
+  function _setUsers(obj){ localStorage.setItem(USERS_KEY, JSON.stringify(obj)); }
+  function _currentId(){ return localStorage.getItem(CURRENT_KEY)||''; }
+  function _setCurrent(uid){ if(uid) localStorage.setItem(CURRENT_KEY, uid); else localStorage.removeItem(CURRENT_KEY); }
+  function _rand6(){ return String(Math.floor(100000+Math.random()*900000)); }
+  function _comments(){ try{return JSON.parse(localStorage.getItem(COMMENTS_KEY)||'{}')}catch{return{}} }
+  function _setComments(o){ localStorage.setItem(COMMENTS_KEY, JSON.stringify(o)); }
+  function _messages(){ try{return JSON.parse(localStorage.getItem(MSG_KEY)||'[]')}catch{return[]} }
+  function _setMessages(arr){ localStorage.setItem(MSG_KEY, JSON.stringify(arr)); }
+  function _groups(){ try{return JSON.parse(localStorage.getItem(GROUPS_KEY)||'{}')}catch{return{}} }
+  function _setGroups(o){ localStorage.setItem(GROUPS_KEY, JSON.stringify(o)); }
+
+  function _ensureUserShape(u){
+    if(!u) return null;
+    u.favs = u.favs || [];
+    u.bio = u.bio || '';
+    u.req_in = u.req_in || [];
+    u.req_out = u.req_out || [];
+    u.friends = u.friends || [];
+    return u;
+  }
+
+  function current(){ const id=_currentId(); const u=_users()[id]; return u? {..._ensureUserShape(u)}: null; }
+
+  // Auth
+  async function register(nick, pass){
+    const users=_users();
+    if(Object.values(users).some(u=>u.nick===nick)) throw new Error('nick_taken');
+    let id=_rand6(); while(users[id]) id=_rand6();
+    users[id] = { id, nick, pass, favs: [], bio:'', req_in:[], req_out:[], friends:[] };
+    _setUsers(users); _setCurrent(id);
+    const g=_groups(); g[id]=g[id]||[{id:'grp1',name:'公共讨论区',messages:[]},{id:'grp2',name:'产品交流',messages:[]}]; _setGroups(g);
+    return { user:{id, nick} };
+  }
+  async function login(identifier, pass){
+    const users=_users();
+    let found=null;
+    if(users[identifier] && users[identifier].pass===pass) found=users[identifier];
+    else found=Object.values(users).find(u=>u.nick===identifier && u.pass===pass) || null;
+    if(!found) throw new Error('invalid_credentials');
+    _ensureUserShape(found); _setCurrent(found.id);
+    return { user:{id:found.id, nick:found.nick} };
+  }
+  async function logout(){ _setCurrent(''); return {}; }
+  async function me(){ return { user: current() }; }
+  async function updateMe({nick, password, bio}){
+    const id=_currentId(); if(!id) throw new Error('unauthenticated');
+    const users=_users(); const u=_ensureUserShape(users[id]); if(!u) throw new Error('not_found');
+    if(nick) u.nick=nick;
+    if(password) u.pass=password;
+    if(typeof bio==='string') u.bio=bio;
+    users[id]=u; _setUsers(users);
+    return { user: {id:u.id, nick:u.nick, bio:u.bio} };
+  }
+  async function deleteMe(confirmText){
+    if(confirmText!=='我确定注销账户') throw new Error('confirm_failed');
+    const id=_currentId(); if(!id) throw new Error('unauthenticated');
+    const users=_users(); delete users[id]; _setUsers(users); _setCurrent(''); return {};
+  }
+
+  // Favorites
+  function getFavs(){
+    const u=current();
+    if(u) return u.favs||[];
+    try{ return JSON.parse(localStorage.getItem(GUEST_FAV_KEY)||'[]'); }catch{return []}
+  }
+  function setFavs(arr){
+    const u=current();
+    if(u){ const users=_users(); users[u.id]={...u, favs:arr}; _setUsers(users); }
+    else { localStorage.setItem(GUEST_FAV_KEY, JSON.stringify(arr)); }
+  }
+  async function toggleFavorite(id){
+    const set=new Set(getFavs());
+    if(set.has(id)) set.delete(id); else set.add(id);
+    setFavs([...set]);
+    return { favorited: set.has(id) };
+  }
+  async function listFavorites(){
+    const favs=getFavs();
+    return { items: ALL_DATA.filter(d=>favs.includes(d.id)).map(d=>({id:d.id,title:d.title,tag:d.tag})) };
+  }
+
+  // Videos
+  async function listVideos({tag, q, page=1, page_size=12}){
+    let data=[...ALL_DATA];
+    if(tag) data=data.filter(d=>d.tag===tag);
+    if(q){ const l=q.toLowerCase(); data=data.filter(d=>d.title.toLowerCase().includes(l)||d.tag.toLowerCase().includes(l)); }
+    const total=data.length;
+    const start=(page-1)*page_size;
+    const items=data.slice(start, start+page_size);
+    return { items, total };
+  }
+  async function getVideo(id){
+    const it=ALL_DATA.find(d=>d.id===Number(id));
+    if(!it) throw new Error('not_found');
+    return { ...it, description: '这里是详情页的占位描述。可接入后端返回的视频简介、作者信息、发布时间等。' };
+  }
+
+  // Comments
+  async function listComments(videoId){
+    const map=_comments(); return { items: (map[videoId]||[]) };
+  }
+  async function postComment(videoId, text){
+    const me=current(); if(!me) throw new Error('unauthenticated');
+    const map=_comments(); const item={ userId:me.id, nick:me.nick, text, ts:Date.now() };
+    map[videoId]=map[videoId]||[]; map[videoId].unshift(item); _setComments(map);
+    return { ok:true, item };
+  }
+
+  // Friends
+  async function getUserPublic(id){
+    const u=_ensureUserShape(_users()[id]); if(!u) throw new Error('not_found');
+    return { id:u.id, nick:u.nick, bio:u.bio, friends:u.friends };
+  }
+  async function sendFriendRequest(targetId){
+    const me=current(); if(!me) throw new Error('unauthenticated');
+    if(me.id===targetId) throw new Error('invalid');
+    const users=_users(); const target=_ensureUserShape(users[targetId]); if(!target) throw new Error('not_found');
+    const src=_ensureUserShape(users[me.id]);
+    if(target.friends.includes(me.id)) return { ok:true, already:true };
+    if(target.req_in.includes(me.id)) return { ok:true, pending:true };
+    target.req_in.push(me.id); src.req_out.push(targetId);
+    users[target.id]=target; users[src.id]=src; _setUsers(users);
+    return { ok:true };
+  }
+  async function listFriendRequests(){
+    const me=current(); if(!me) throw new Error('unauthenticated');
+    const users=_users(); const u=_ensureUserShape(users[me.id]);
+    return { incoming: u.req_in.map(id=>({id, nick: users[id]?.nick||id})), outgoing: u.req_out.map(id=>({id, nick: users[id]?.nick||id})) };
+  }
+  async function respondFriendRequest(fromId, accept){
+    const me=current(); if(!me) throw new Error('unauthenticated');
+    const users=_users(); const u=_ensureUserShape(users[me.id]); const from=_ensureUserShape(users[fromId]);
+    if(!u || !from) throw new Error('not_found');
+    u.req_in = u.req_in.filter(id=>id!==fromId);
+    from.req_out = from.req_out.filter(id=>id!==me.id);
+    if(accept){
+      if(!u.friends.includes(fromId)) u.friends.push(fromId);
+      if(!from.friends.includes(me.id)) from.friends.push(me.id);
+    }
+    users[u.id]=u; users[from.id]=from; _setUsers(users);
+    return { ok:true };
+  }
+
+  // Messages
+  function unreadCount(){
+    const meId=_currentId(); if(!meId) return 0;
+    return _messages().filter(m=>m.to===meId && !m.read).length;
+  }
+  async function listDMThreads(){
+    const meId=_currentId(); if(!meId) throw new Error('unauthenticated');
+    const msgs=_messages().filter(m=>m.from===meId || m.to===meId).sort((a,b)=>b.ts-a.ts);
+    const users=_users();
+    const threads={}; 
+    msgs.forEach(m=>{
+      const other = m.from===meId? m.to : m.from;
+      if(!threads[other]) threads[other]={ other, last:m, unread:0 };
+      if(m.to===meId && !m.read) threads[other].unread += 1;
+    });
+    return { items: Object.values(threads).map(t=>({ otherId:t.other, otherNick: users[t.other]?.nick||t.other, last:t.last, unread:t.unread })) };
+  }
+  async function listMessages(withId){
+    const meId=_currentId(); if(!meId) throw new Error('unauthenticated');
+    const msgs=_messages().filter(m=> (m.from===meId && m.to===withId) || (m.from===withId && m.to===meId)).sort((a,b)=>a.ts-b.ts);
+    const all=_messages(); all.forEach(m=>{ if(m.from===withId && m.to===meId) m.read=true; }); _setMessages(all);
+    return { items: msgs };
+  }
+  async function sendMessage(toId, text){
+    const meId=_currentId(); if(!meId) throw new Error('unauthenticated');
+    const all=_messages(); all.push({ from:meId, to:toId, text, ts:Date.now(), read:false }); _setMessages(all);
+    return { ok:true };
+  }
+
+  // Groups
+  async function listGroups(){
+    const meId=_currentId(); if(!meId) throw new Error('unauthenticated');
+    const g=_groups()[meId]||[]; return { items: g };
+  }
+  async function listGroupMessages(groupId){
+    const meId=_currentId(); if(!meId) throw new Error('unauthenticated');
+    const g=_groups(); const gs=g[meId]||[]; const grp=gs.find(x=>x.id===groupId) || {messages:[]};
+    return { items: grp.messages||[] };
+  }
+  async function sendGroupMessage(groupId, text){
+    const me=current(); if(!me) throw new Error('unauthenticated');
+    const g=_groups(); g[me.id]=g[me.id]||[]; const grp=g[me.id].find(x=>x.id===groupId); if(!grp) throw new Error('not_found');
+    grp.messages.push({ from:me.id, nick:me.nick, text, ts:Date.now() }); _setGroups(g);
+    return { ok:true };
+  }
+
+  return {
+    register, login, logout, me, updateMe, deleteMe,
+    listVideos, getVideo, listFavorites, toggleFavorite,
+    listComments, postComment,
+    getUserPublic, sendFriendRequest, listFriendRequests, respondFriendRequest,
+    listDMThreads, listMessages, sendMessage,
+    listGroups, listGroupMessages, sendGroupMessage,
+    unreadCount,
+    _current: current, _setCurrent, getFavs, setFavs
+  };
+})();
+
+</script>
+  <script>
+
+guardAge();
+injectChrome('user.html');
+
+const params=new URLSearchParams(location.search);
+const uid=params.get('id')||'';
+
+(async function(){
+  try{
+    const u=await API.getUserPublic(uid);
+    document.getElementById('uTitle').textContent = `用户：${u.nick}`;
+    document.getElementById('uId').value = u.id;
+    document.getElementById('uNick').value = u.nick;
+    document.getElementById('uBio').value = u.bio || '';
+    const me = (await API.me()).user;
+
+    const goMsg = document.getElementById('btnSendMsg');
+    goMsg.href = me && me.id!==u.id ? `messages.html?with=${u.id}` : 'messages.html';
+
+    const addBtn=document.getElementById('btnAddFriend');
+    if(!me){ addBtn.onclick=()=>alert('请先登录再加好友'); }
+    else if(me.id===u.id){ addBtn.disabled=true; addBtn.textContent='这是你自己'; }
+    else if(u.friends && u.friends.includes(me.id)){ addBtn.disabled=true; addBtn.textContent='已是好友'; }
+    else{
+      addBtn.onclick=async ()=>{
+        try{ await API.sendFriendRequest(u.id); addBtn.textContent='已发送请求'; addBtn.disabled=true; }catch(e){ alert('发送失败'); }
+      };
+    }
+  }catch(e){
+    document.getElementById('uTitle').textContent='未找到该用户';
+  }
+})();
+
+</script>
+</body>
+</html>
