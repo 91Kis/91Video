@@ -1,3 +1,0 @@
-Contact: mailto:Video91_official@hotmail.com
-Policy: https://github.com/91Kis/91Video/blob/main/.github/SECURITY.md
-Preferred-Languages: zh, en
