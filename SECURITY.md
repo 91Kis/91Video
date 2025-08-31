@@ -15,8 +15,8 @@ We accept vulnerability reports for:
 Preferred channel: **GitHub Private Vulnerability Reporting**  
 Open the repository → **Security** → **Report a vulnerability**.
 
-If GitHub reporting is unavailable, you may email the maintainers (replace with your address).
-- Email: <set-your-security-email@yourdomain> (optional)
+If GitHub reporting is unavailable, you may email the maintainers.
+- Email: <Video91_official@hotmail.com>
 
 **Please include:**
 - A clear, reproducible description and impact
@@ -75,8 +75,8 @@ This project **does not currently offer monetary bug bounties**. We are happy to
 首选渠道：**GitHub 私密漏洞上报**  
 在仓库页面进入 **Security → Report a vulnerability**。
 
-若该渠道不可用，可邮件联系维护者（请自行替换邮箱）：
-- 邮箱：<set-your-security-email@yourdomain>（可选）
+若该渠道不可用，可邮件联系维护者:
+- 邮箱：<Video91_official@hotmail.com>
 
 **请尽量提供：**
 - 清晰的复现步骤与影响描述
