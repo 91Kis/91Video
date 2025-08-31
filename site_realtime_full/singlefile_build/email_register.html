@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>邮箱注册</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="container">
+    <h1 class="logo">邮箱注册</h1>
+  </header>
+  <main class="container">
+    <section class="panel">
+      <h3 class="title">创建账户</h3>
+      <div class="row" style="gap:.8rem;flex-wrap:wrap">
+        <input id="regNick" class="input" placeholder="昵称（必填）" style="flex:1;min-width:220px">
+        <input id="regEmail" class="input" type="email" placeholder="you@example.com" style="flex:1;min-width:260px">
+        <input id="regPwd" class="input" type="password" placeholder="设置密码（6-32位）" style="flex:1;min-width:220px">
+      </div>
+      <div class="row" style="justify-content:flex-end;margin-top:.8rem;gap:.6rem">
+        <button id="btnReg" class="btn primary">注册并发送验证邮件</button>
+        <a class="btn" href="register.html">返回注册页</a>
+      </div>
+      <p class="muted" style="margin-top:.5rem">提示：点击邮件中的确认按钮后将返回注册页并自动完成注册。</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initRealtime, ensureProfile } from "../js/social_realtime.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut, signInWithEmailAndPassword, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // 尝试复用全站的 FIREBASE_CONFIG（页面上其它脚本会定义），否则在 initRealtime 内初始化
+    const MODE='FIREBASE';
+    await initRealtime({ mode: MODE, firebaseConfig: undefined });
+
+    const auth = getAuth();
+    const db = getFirestore();
+
+    const $ = s=>document.querySelector(s);
+    const nickEl = $('#regNick'); const emailEl = $('#regEmail'); const pwdEl = $('#regPwd'); const regBtn = $('#btnReg');
+
+    function isValidEmail(x){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x); }
+
+    // 注册 -> 发送验证邮件
+    regBtn?.addEventListener('click', async ()=>{
+      const nick = (nickEl?.value||'').trim();
+      const email = (emailEl?.value||'').trim();
+      const pwd = (pwdEl?.value||'').trim();
+      if(!nick){ alert('请输入昵称'); return; }
+      if(!isValidEmail(email)){ alert('请输入有效邮箱'); return; }
+      if(!/^.{6,32}$/.test(pwd)){ alert('密码长度需 6-32 位'); return; }
+
+      try{
+        const res = await createUserWithEmailAndPassword(auth, email, pwd);
+        // 把注册信息暂存到 sessionStorage，以便验证链接回跳后自动登录/完善
+        sessionStorage.setItem('pendingReg', JSON.stringify({ email, pwd, nick }));
+        // 发送验证邮件：URL 回到 register.html
+        const url = location.origin + location.pathname.replace('email_register.html','register.html');
+        await sendEmailVerification(res.user, { url, handleCodeInApp: true });
+        alert('验证邮件已发送，请到邮箱点击确认');
+        await signOut(auth);
+      }catch(e){
+        alert((e && e.message) || '注册失败');
+      }
+    });
+  </script>
+</body>
+</html>
