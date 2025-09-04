@@ -1,6 +1,6 @@
 # Security Policy · 91Video
 
-**Maintainers:** 91Kis & 91YuchengH  
+**Maintainers:** 91Kis & 91Allan  
 **Contact:** <Video91_official@hotmail.com>
 
 ## Supported Versions
@@ -64,7 +64,7 @@ This project **does not currently offer monetary bug bounties**. We are happy to
 
 # 安全策略（中文）
 
-**维护者：** 91Kis & 91YuchengH  
+**维护者：** 91Kis & 91Allan  
 **联系邮箱：** <Video91_official@hotmail.com>
 
 ## 覆盖范围
